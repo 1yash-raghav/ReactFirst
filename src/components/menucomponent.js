@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Mycard from './cardComponent';
-import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle, CardGroup } from 'reactstrap';
+import { CardGroup } from 'reactstrap';
 
 class Menu extends Component {
     constructor(props) {
@@ -13,7 +13,7 @@ class Menu extends Component {
         const menu = this.props.dishes.map((dish) => {
             return (
               <div key={dish.id} className="col-12 col-sm" style={{display: 'flex'}}>
-                <Mycard imgSource={dish.image} cardTitle={dish.name} cardText={dish.description}/>
+                <Mycard imgSource={dish.image} cardTitle={dish.name} cardText={dish.description} price={dish.price} category={dish.category}/>
               </div>
             );
         });
