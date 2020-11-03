@@ -24,7 +24,7 @@
 
 .btn--outline {
   background: transparent;
-  color: #F9A826;
+  color: #000000;
   padding: 8px 20px;
   border-radius: 4px;
   border: 1px solid var(--primary);

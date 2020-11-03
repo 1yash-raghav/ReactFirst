@@ -6,6 +6,7 @@ import AnimatedNav from './NavbarComponent';
 import Carousel from './carouselComponent';
 import {DISHES} from '../shared/dishes';
 import Footer from './footerComponent';
+import Contact from './contactComponent';
 import {Switch , Route, Redirect} from 'react-router-dom';
 
 class Main extends Component {
@@ -29,6 +30,7 @@ class Main extends Component {
         <Carousel />
         <Switch>
           <Route exact path='/home' component={Home}/>
+          <Route exact path='/contactus' component={Contact}/>
           <Route exact path='/menu' component={() => <Menu dishes={this.state.dishes} onClick={(dishId) => this.onDishSelect(dishId)} />}/>
           <Redirect to='./home'/>
         </Switch>
