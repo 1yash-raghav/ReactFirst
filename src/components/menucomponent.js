@@ -12,8 +12,8 @@ class Menu extends Component {
     render() {
         const menu = this.props.dishes.map((dish) => {
             return (
-              <div key={dish.id} className="col-12 col-sm" style={{display: 'flex'}}>
-                <Mycard imgSource={dish.image} cardTitle={dish.name} cardText={dish.description} price={dish.price} category={dish.category}/>
+              <div key={dish.id} className="col-12 col-sm" style={{display: 'flex'}} onClick={()=>this.props.onDishSelect(dish.id)}>
+                <Mycard dishID={dish.id} imgSource={dish.image} cardTitle={dish.name} cardText={dish.description} price={dish.price} category={dish.category}/>
               </div>
             );
         });

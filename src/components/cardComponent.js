@@ -10,8 +10,9 @@ export default class Mycard extends Component {
     }
 
     render(){
+        const dishid = this.props.dishID;
         return(
-            <Card style={{ backgroundColor: '#F9A826', color: 'white', padding: '5px', marginTop: '80px', width: '250px'}}>
+            <Card hoverable={true} style={{ backgroundColor: '#F9A826', color: 'white', padding: '5px', marginTop: '80px', width: '250px'}}>
                 <CardImg variant="top" src={this.props.imgSource} width="100%" height="40%"/>
                 <CardImgOverlay>
                     <div className="row">
