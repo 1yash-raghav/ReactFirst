@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-pascal-case */
 import React, { Component } from 'react';
 import Button from '../Button';
 import {Label, Col, Row} from 'reactstrap';
@@ -18,6 +19,12 @@ export default class Contact extends Component {
     }
     
     render(){
+        const required = (val) => val && val.length;
+        const maxLength = (len) => (val) => !(val) || (val.length <= len);
+        const minLength = (len) => (val) => val && (val.length >= len);
+        const isNumber = (val) => !isNaN(Number(val));
+        const validEmail = (val) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
+
         return (
         <div className="container" style={{ color: '#FFFFFF', paddingTop: "100px" }}>
             <div className="row row-content">
@@ -56,47 +63,91 @@ export default class Contact extends Component {
                     <Row className="form-group">
                         <Label for="firstname" md={2}>First Name :</Label>
                         <Col md={3}>
-                            <Control.text model='.firstname' className="form-control" id="firstname" name="firstname" placeholder="First Name"/>
+                            <Control.text model='.firstname' className="form-control" id="firstname" name="firstname" placeholder="First Name" validators={{
+                                            required, minLength: minLength(3), maxLength: maxLength(15)}}/>
+                                    <Errors
+                                        className="text-danger"
+                                        model=".firstname"
+                                        show="touched"
+                                        messages={{
+                                            required: 'Required ',
+                                            minLength: 'Must be greater than 2 characters',
+                                            maxLength: 'Must be 15 characters or less'
+                                        }}
+                                     />
                             
                         </Col>
                         <Label for="lastname" md={2}>Last Name :</Label>
                         <Col md={3}>
-                             <Control.text model='.lastname' className="form-control" id="lastname" placeholder="Last Name"/>
-                            
+                             <Control.text model='.lastname' className="form-control" id="lastname" placeholder="Last Name"validators={{
+                                            required, minLength: minLength(3), maxLength: maxLength(15)}}/>
+                                    <Errors
+                                        className="text-danger"
+                                        model=".lastname"
+                                        show="touched"
+                                        messages={{
+                                            required: 'Required ',
+                                            minLength: 'Must be greater than 2 characters',
+                                            maxLength: 'Must be 15 characters or less'
+                                        }}
+                                     />
                         </Col>
                     </Row>
                     <Row className="form-group">
                         <Label for="phonenumber" md={2}>Phone No. :</Label>
                         <Col md={8}>
-                            <Control.text model='.phonenumber' className="form-control" id="phonenumber" placeholder="Phone Number"/>
-                            
+                            <Control.text model='.phonenumber' className="form-control" id="phonenumber" placeholder="Phone Number"validators={{
+                                            required, minLength: minLength(3), maxLength: maxLength(15), isNumber}}/>
+                                    <Errors
+                                        className="text-danger"
+                                        model=".phonenumber"
+                                        show="touched"
+                                        messages={{
+                                            required: 'Required ',
+                                            minLength: 'Must be greater than 2 numbers',
+                                            maxLength: 'Must be 15 numbers or less',
+                                            isNumber: 'Must be a number'
+                                        }}
+                                     />
                         </Col>
                     </Row>
                     <Row className="form-group">
                         <Label for="email" md={2}>Email :</Label>
                             <Col md={8}>
-                                <Control.text model='.email' className="form-control" id="email" name="email" placeholder="Email" />
-                                
+                                <Control.text model='.email' className="form-control" id="email" name="email" placeholder="Email" validators={{
+                                            required, validEmail}}/>
+                                    <Errors
+                                        className="text-danger"
+                                        model=".email"
+                                        show="touched"
+                                        messages={{
+                                            required: 'Required ',
+                                            validEmail: 'Invalid Email Address'
+                                        }}
+                                     />
                             </Col>
                     </Row>
                     <Row className="form-group">
-                            <Col md={{size:5, offset:2}}>
-                                <div className="form-check">
-                                    <Label check>
-                                        <Control.checkbox className="form-control" model=".agree" type="checkbox" name="agree"/> {' '}
-                                        <strong>May we contact you?</strong>
-                                    </Label>
-                                </div>
-                        </Col>
-                            <Col md={3}>
-                                <Control.select className="form-control" model=".contactType" name="contactType">
-                                    <option>Phone</option>
-                                    <option>Email</option>
-                                </Control.select>
-                            </Col>
+                                <Col md={{size: 5, offset: 2}}>
+                                    <div className="form-check">
+                                        <Label check>
+                                            <Control.checkbox model=".agree" name="agree"
+                                                className="form-check-input"
+                                                 /> {' '}
+                                                <strong>May we contact you?</strong>
+                                        </Label>
+                                    </div>
+                                </Col>
+                                <Col md={{size: 3, offset: 0}}>
+                                    <Control.select model=".contactType" name="contactType"
+                                        className="form-control">
+                                        <option>Phone</option>
+                                        <option>Email</option>
+                                    </Control.select>
+                                </Col>
                         </Row>
                         <Row className="form-group">
-                        <   Label for="feedback" md={2}>Feedback :</Label>
+                            <Label for="feedback" md={2}>Feedback :</Label>
                             <Col md={8}>
                                 <Control.textarea className="form-control" model=".textarea" id="feedback" name="feedback" placeholder="Type here for suggestions..." rows={10}/>
                             </Col>

@@ -7,17 +7,25 @@ import Footer from './footerComponent';
 import Contact from './contactComponent';
 import {Switch , Route, Redirect, withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
-
+import { addComment } from '../redux/ActionCreators';
 
 const mapStateToProps = state => {
   return {
     dishes: state.dishes
   }
 }
+
+const mapDispatchToProps = dispatch => ({
+  addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment))
+});
+
 class Main extends Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      selectedDish: null
+    }
   }
 
   onDishSelect(dishId) {
@@ -33,7 +41,8 @@ class Main extends Component {
           <Route exact path='/home' component={Home}/>
           <Route exact path='/contactus' component={Contact}/>
           <Route exact path='/menu' component={() => <Menu dishes={this.props.dishes} onDishSelect={this.onDishSelect.bind(this)} />}/>
-          <Redirect to='./home'/>
+          <Route path='/menu/:selectedDish' component={Home}/>
+          <Redirect to='../home'/>
         </Switch>
         <Footer />
       </ div>
@@ -41,4 +50,4 @@ class Main extends Component {
   }
 }
 
-export default withRouter(connect(mapStateToProps)(Main));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));
