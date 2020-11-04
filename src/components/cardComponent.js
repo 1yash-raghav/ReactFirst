@@ -6,17 +6,17 @@ export default class Mycard extends Component {
     
     constructor(props) {
         super(props);
-        this.state = { shadow: 1 }
+        this.state = { 
+            hovered: false
+        };
     }
 
-    onMouseOver = () => this.setState({ shadow: 8 });
-    onMouseOut = () => this.setState({ shadow: 1 });
+    onMouseOver = () => this.setState({ hovered: true });
+    onMouseOut = () => this.setState({ hovered: false });
 
     render(){
         return(
-            <Card onMouseOver={this.onMouseOver}
-        onMouseOut={this.onMouseOut}
-        zDepth={this.state.shadow} shadowColor="#ffffff" hoverable={true} style={{width:'18rem', backgroundColor: '#F9A826', marginTop:100, height: '30vw'}}>
+            <Card onMouseOver={this.onMouseOver} onMouseOut={this.onMouseOut} zDepth={this.state.shadow} hoverable style={{width:'18rem', backgroundColor: '#F9A826', marginTop:100, height: '30vw', transform: `${this.state.hovered ? 'scale(1.05)' : 'scale(1.0)'}`}}>
                 <CardImg variant="top" src={this.props.imgSource} width="100%" height="45%"/>
                 <CardImgOverlay>
                     <div className="row">
