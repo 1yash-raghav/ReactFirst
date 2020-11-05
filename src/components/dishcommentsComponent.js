@@ -6,6 +6,7 @@ import {LocalForm, Control, Errors} from 'react-redux-form';
 import {Link} from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faPenAlt} from "@fortawesome/free-solid-svg-icons";
+import Loading from './loadingComponent';
 
 export default class Dishcomments extends Component {
     constructor(props){
@@ -32,7 +33,28 @@ export default class Dishcomments extends Component {
         const required = (val) => val && val.length;
         const maxLength = (len) => (val) => !(val) || (val.length <= len);
         const minLength = (len) => (val) => val && (val.length >= len);
-        const cmnts = this.props.comments.map((commnts) => {
+        
+        if(this.props.isLoading){
+            return(
+                <div className="container">
+                    <div className="row">
+                        <Loading/>
+                    </div>
+                </div>
+            );
+        }
+
+        else if(this.props.errMess){
+            return(
+                <div className="container">
+                    <div className="row">
+                        <h3>{this.props.errMess}</h3>
+                    </div>
+                </div>
+            );
+        }
+        else if(this.props.dish != null){
+            const Commnt =this.props.comments.map((commnts) => {
                 return (
                     <ul key={commnts.id} className="list-unstyled">
                         <li>
@@ -46,11 +68,11 @@ export default class Dishcomments extends Component {
                                 }).format(new Date(Date.parse(commnts.date)))}
                             </p>
                         </li>
-                    </ul>
+                    </ul> 
                 );
-            });
-        return (
-        <div className="container" style={{ color: '#FFFFFF', paddingTop: "10px" }}>
+            })
+            return (
+                <div className="container" style={{ color: '#FFFFFF', paddingTop: "10px" }}>
             <Breadcrumb style={{backgroundColor:"#000000"}}>
                         <BreadcrumbItem> <Link to='/home'>Home</Link> </BreadcrumbItem>
                         <BreadcrumbItem> <Link to='/menu'>Menu</Link> </BreadcrumbItem>
@@ -65,7 +87,7 @@ export default class Dishcomments extends Component {
                         </div>
                         <div className="col-12 col-sm-6 offset-sm-1" style={{backgroundColor:"#000000", color:"#FFFFFF" , paddingTop:20}}>
                             <h1 style={{color:"#F9A826"}}>Comments</h1> <hr/>
-                            {cmnts}
+                            {Commnt}
                         </div>
                         <div className="col-12 col-sm-5 offset-sm-8" style={{marginTop: 30}}>
                             <Button outline onClick={this.toggleModal}><FontAwesomeIcon icon={faPenAlt} /> Comment</Button>
@@ -111,6 +133,7 @@ export default class Dishcomments extends Component {
                         </ModalBody>
                         </Modal>
         </div>
-    );
+            );
+        }
     }
 };

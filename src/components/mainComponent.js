@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Switch , Route, Redirect, withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
-import { addComment } from '../redux/ActionCreators';
+import { addComment, fetchDishes } from '../redux/ActionCreators';
 
 // Components imported
 
@@ -21,7 +21,8 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment))
+  addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment)),
+  fetchDishes: () => {dispatch(fetchDishes())}
 });
 
 class Main extends Component {
@@ -37,6 +38,10 @@ class Main extends Component {
     this.setState({ selectedDish: dishId});
   }  
 
+  componentDidMount(){
+    this.props.fetchDishes();
+  }
+
   render() {
     return (
       <div style={{backgroundColor: "#000000"}}>
@@ -44,8 +49,8 @@ class Main extends Component {
         <Mycarousel />
         <Switch>
           <Route exact path='/home' component={Home}/>
-          <Route exact path='/menu/' component={() => <Menu dishes={this.props.dishes} onDishSelect={this.onDishSelect.bind(this)} />}/>
-          <Route exact path='/menu/:id' component={()=><Dishcomments dish={this.props.dishes.filter((dish) => dish.id === this.state.selectedDish)[0]} 
+          <Route exact path='/menu/' component={() => <Menu dishes={this.props.dishes}  onDishSelect={this.onDishSelect.bind(this)} />}/>
+          <Route exact path='/menu/:id' component={()=><Dishcomments isLoading={this.props.dishes.isLoading} errMess={this.props.dishes.errMess} dish={this.props.dishes.dishes.filter((dish) => dish.id === this.state.selectedDish)[0]} 
             comments={this.props.comments.filter((comment) => comment.dishId === this.state.selectedDish)} addComment={this.props.addComment}/>}/>
           <Route exact path='/contactus' component={Contact}/>
           <Redirect to='../home'/>

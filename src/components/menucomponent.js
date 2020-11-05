@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Mycard from './cardComponent';
 import { CardGroup } from 'reactstrap';
 import {Link} from 'react-router-dom';
+import Loading from './loadingComponent';
 
 class Menu extends Component {
     constructor(props) {
@@ -11,7 +12,27 @@ class Menu extends Component {
     }
 
     render() {
-        const menu = this.props.dishes.map((dish) => {
+        if(this.props.dishes.isLoading){
+            return(
+                <div className="container">
+                    <div className="row">
+                        <Loading/>
+                    </div>
+                </div>
+            );
+        }
+
+        else if(this.props.dishes.errMess){
+            return(
+                <div className="container">
+                    <div className="row">
+                        <h3>{this.props.errMess}</h3>
+                    </div>
+                </div>
+            );
+        }
+        else{
+          const Menucards = this.props.dishes.dishes.map((dish) => {
             return (
               <div key={dish.id} className="col-12 col-sm" onClick={()=>this.props.onDishSelect(dish.id)}>
               <Link to={`/menu/${dish.id}`} style={{textDecoration: 'inherit'}}>
@@ -20,12 +41,12 @@ class Menu extends Component {
               </div>
             );
         });
-
-        return (
+          return (
           <CardGroup style={{padding: 50, margin: 50}}>
-            {menu}
+            {Menucards}
           </CardGroup>
-        );
+          );
+        }
     }
 }
 
