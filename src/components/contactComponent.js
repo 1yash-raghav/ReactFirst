@@ -154,7 +154,7 @@ export default class Contact extends Component {
                         </Row>
                         <Row className="form-group">
                             <Col md={{offset:2}}>
-                                <Button outline md={{offset:2}}>
+                                <Button type="submit" outline md={{offset:2}}>
                                     Submit Feedback
                                 </Button>
                             </Col>

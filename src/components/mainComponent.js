@@ -46,7 +46,7 @@ class Main extends Component {
           <Route exact path='/home' component={Home}/>
           <Route exact path='/menu/' component={() => <Menu dishes={this.props.dishes} onDishSelect={this.onDishSelect.bind(this)} />}/>
           <Route exact path='/menu/:id' component={()=><Dishcomments dish={this.props.dishes.filter((dish) => dish.id === this.state.selectedDish)[0]} 
-            comments={this.props.comments.filter((comment) => comment.dishId === this.state.selectedDish)}/>}/>
+            comments={this.props.comments.filter((comment) => comment.dishId === this.state.selectedDish)} addComment={this.props.addComment}/>}/>
           <Route exact path='/contactus' component={Contact}/>
           <Redirect to='../home'/>
         </Switch>

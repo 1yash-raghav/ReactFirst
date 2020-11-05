@@ -18,8 +18,8 @@ export default class Dishcomments extends Component {
     };
     
     handleSubmit(values) {
-        console.log('Current State is: ' + JSON.stringify(values));
-        alert('Current State is: ' + JSON.stringify(values));
+        this.toggleModal();
+        this.props.addComment(this.props.dish.id, values.rating, values.author, values.comment);
     }
     
     toggleModal() {
@@ -37,7 +37,7 @@ export default class Dishcomments extends Component {
                     <ul key={commnts.id} className="list-unstyled">
                         <li>
                             <p> {commnts.comment} </p>
-                            <p> -- {commnts.author},
+                            <p style={{color: '#F9A826'}}> -- {commnts.author},
                                 &nbsp;
                                 {new Intl.DateTimeFormat('en-US', {
                                     year: 'numeric',
@@ -58,13 +58,13 @@ export default class Dishcomments extends Component {
                     </Breadcrumb>
                     <div className="row" style={{marginTop:50, marginBottom:80}}>
                         <div className="col-12 col-sm-5" style={{backgroundColor:"#F9A826", color:"#000000" , paddingTop:10, borderRadius: 20, justifyContent:'center'}}>
-                            <img src={this.props.dish.image} alt="" style={{width:"300px", height:"300px"}} />
-                            <h2>{this.props.dish.name}</h2>
+                            <img src={this.props.dish.image} alt="" style={{width:"300px", height:"300px", marginLeft:'15%'}} />
                             <hr/>
+                            <h2>{this.props.dish.name}</h2>
                             <p>{this.props.dish.description}</p>
                         </div>
                         <div className="col-12 col-sm-6 offset-sm-1" style={{backgroundColor:"#000000", color:"#FFFFFF" , paddingTop:20}}>
-                            <h2 style={{color:"#F9A826"}}>Comments</h2> <hr/>
+                            <h1 style={{color:"#F9A826"}}>Comments</h1> <hr/>
                             {cmnts}
                         </div>
                         <div className="col-12 col-sm-5 offset-sm-8" style={{marginTop: 30}}>
@@ -98,7 +98,7 @@ export default class Dishcomments extends Component {
                                     </Row>
 
                                     <Row className="form-group">
-                                        <Label htmlFor="feedback" md={3}>Comment:</Label>
+                                        <Label htmlFor="comment" md={3}>Comment:</Label>
                                         <Col md={7}>
                                             <Control.textarea model=".comment" id="comment" name="comment" rows="6" className="form-control" validators={{ required }} />
                                             <Errors className="text-danger" model=".comment" show="touched" messages={{ required: 'Required' }} />
