@@ -5,7 +5,7 @@ import {Label, Col, Row} from 'reactstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faMobile, faEnvelope} from '@fortawesome/free-solid-svg-icons'
 import {faWhatsapp} from '@fortawesome/free-brands-svg-icons';
-import {Control, LocalForm, Errors} from 'react-redux-form';
+import {Control, LocalForm, Errors, Form, actions} from 'react-redux-form';
 
 export default class Contact extends Component {
     constructor(props){
@@ -16,6 +16,7 @@ export default class Contact extends Component {
     handleSubmit(values) {
         console.log('Current State is: ' + JSON.stringify(values));
         alert('Current State is: ' + JSON.stringify(values));
+        this.props.resetFeedbackForm();
     }
     
     render(){
@@ -59,7 +60,7 @@ export default class Contact extends Component {
               <h3 style={{color: "#F9A826"}}>Send us your Feedback</h3>
            </div>
             <div className="col-12 col-md-10" style={{color: "#F9A826", padding: "20px"}}>
-                <LocalForm onSubmit={(values)=>this.handleSubmit(values)}>
+                <Form model="feedback" onSubmit={(values)=>this.handleSubmit(values)}>
                     <Row className="form-group">
                         <Label for="firstname" md={2}>First Name :</Label>
                         <Col md={3}>
@@ -159,7 +160,7 @@ export default class Contact extends Component {
                                 </Button>
                             </Col>
                         </Row>
-                </LocalForm>
+                </Form>
             </div>
        </div>
 
