@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, CardImg, CardText, CardBody, CardTitle, CardImgOverlay, Badge} from 'reactstrap';
+import { Card, CardImg, CardBody, CardTitle, CardImgOverlay, Badge} from 'reactstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRupeeSign } from '@fortawesome/free-solid-svg-icons';
 export default class Mycard extends Component {

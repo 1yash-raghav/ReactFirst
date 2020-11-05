@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 
 export default class RightContent extends Component {
-    constructor(props) {
-        super(props);
-    }
 
     render() {
         return(
@@ -16,7 +13,7 @@ export default class RightContent extends Component {
                     <p style={{color: "#F9A826", fontFamily: "sans-serif"}}>{this.props.des}</p>
                 </div>
                 <div className="col-12 col-sm">
-                    <img src={this.props.image} style={{elevation: 10}} width="500" height="500"/>
+                    <img src={this.props.image} style={{elevation: 10}} width="500" height="500" alt=""/>
                 </div>
             </div>
         );

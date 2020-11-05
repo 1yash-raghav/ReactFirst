@@ -5,7 +5,7 @@ import {Label, Col, Row} from 'reactstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faMobile, faEnvelope} from '@fortawesome/free-solid-svg-icons'
 import {faWhatsapp} from '@fortawesome/free-brands-svg-icons';
-import {Control, LocalForm, Errors, Form, actions} from 'react-redux-form';
+import {Control, Errors, Form} from 'react-redux-form';
 
 export default class Contact extends Component {
     constructor(props){
