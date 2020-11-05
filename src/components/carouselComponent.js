@@ -1,7 +1,8 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React from 'react';
 import Carousel from 'nuka-carousel';
 
-export default class extends React.Component {
+export default class Mycarousel extends React.Component {
   render() {
     return (
       <Carousel>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Mycard from './cardComponent';
-import { CardGroup, Button } from 'reactstrap';
+import { CardGroup } from 'reactstrap';
 import {Link} from 'react-router-dom';
 
 class Menu extends Component {
@@ -14,7 +14,7 @@ class Menu extends Component {
         const menu = this.props.dishes.map((dish) => {
             return (
               <div key={dish.id} className="col-12 col-sm" onClick={()=>this.props.onDishSelect(dish.id)}>
-                <Link to={`/menu/${dish.id}`} style={{textDecoration: 'inherit'}}>
+              <Link to={`/menu/${dish.id}`} style={{textDecoration: 'inherit'}}>
                   <Mycard dishID={dish.id} imgSource={dish.image} cardTitle={dish.name} cardText={dish.description} price={dish.price} category={dish.category}/>
               </Link>
               </div>

@@ -11,7 +11,7 @@ export default class Home extends Component {
     }
     render() {
         return(
-            <div>
+            <div style={{backgroundColor: "#000000"}}>
                 <LeftContent image={'assets/images/welcome.svg'} text1={'Hello!♥'} text2={'Sachdeva, Wecomes You'} des={'Hope you all have a great time and great food.'} />
                 <RightContent image={'assets/images/birthday.svg'} text1={'Yayy! Birthday Party'} des={'Where else could you go to give a treat to your ever-hungry friends.'} />
                 <LeftContent image={'assets/images/date.svg'} text1={"Congtzz! it's a 'Date'"} des={'No nearby dine-in restaurant or cafe would provide you better peaceful ambiance and lip smacking cuisines.'} />
