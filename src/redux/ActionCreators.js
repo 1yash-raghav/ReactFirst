@@ -13,10 +13,24 @@ export const addComment = (dishId, rating, author, comment) => ({
 
 export const fetchDishes =() => (dispatch) => {     // fetchDishes is a thunk that calls and disatch several actions
     dispatch(dishesLoading(true));
-
+    
     return fetch(baseUrl+'dishes')
+        .then(response => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error('Error ' + response.status + ': ' + response.statusText);
+          error.response = response;
+          throw error;
+        }
+      },
+      error => {
+            var errmess = new Error(error.message);
+            throw errmess;
+      })
         .then(response =>response.json())                 // handling promise
-        .then(dishes => dispatch(addDishes(dishes)))  ;                 //response.json() will be processed adn availabe here as dishes
+        .then(dishes => dispatch(addDishes(dishes)))                  //response.json() will be processed adn availabe here as dishes
+        .catch(error => dispatch(dishesFailed(error.message)));
 }
 
 export const dishesLoading = () => ({
@@ -35,8 +49,26 @@ export const addDishes = (dishes) =>({
 
 export const fetchComments =() => (dispatch) => {     // fetchComments is a thunk that calls and disatch several actions
     return fetch(baseUrl+'comments')
+        .then(response => {
+            if(response.ok){
+                return  response;
+            }
+            else{
+                var error= new Error('Error '+ response.status + " : " + response.statusText);
+                error.response = response;
+                throw error;
+
+            }
+        }, 
+            error => {
+                var errmess = new Error(error.message);
+                throw errmess;
+            }
+        )
         .then(response =>response.json())                 // handling promise
-        .then(comments => dispatch(addComments(comments)));   //response.json() will be processed adn availabe here as comments
+        .then(comments => dispatch(addComments(comments)))   //response.json() will be processed adn availabe here as comments 
+        .catch(error => dispatch(commentsFailed(error.message)));
+        //3 set of promise handlers, response retured from one is sent to next.
 }
 
 export const commentsFailed = (errmess) => ({
