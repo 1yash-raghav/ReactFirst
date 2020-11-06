@@ -3,6 +3,7 @@ import Mycard from './cardComponent';
 import { CardGroup } from 'reactstrap';
 import {Link} from 'react-router-dom';
 import Loading from './loadingComponent';
+import {baseUrl} from '../shared/baseUrl';
 
 class Menu extends Component {
     constructor(props) {
@@ -36,7 +37,7 @@ class Menu extends Component {
             return (
               <div key={dish.id} className="col-12 col-sm" onClick={()=>this.props.onDishSelect(dish.id)}>
               <Link to={`/menu/${dish.id}`} style={{textDecoration: 'inherit'}}>
-                  <Mycard dishID={dish.id} imgSource={dish.image} cardTitle={dish.name} cardText={dish.description} price={dish.price} category={dish.category}/>
+                  <Mycard dishID={dish.id} imgSource={baseUrl + dish.image} cardTitle={dish.name} cardText={dish.description} price={dish.price} category={dish.category}/>
               </Link>
               </div>
             );

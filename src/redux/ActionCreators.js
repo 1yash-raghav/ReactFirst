@@ -1,5 +1,5 @@
-import * as ActionTypes from './ActionTypes';
-import { DISHES } from '../shared/dishes';    // Moved here because now Action Creator will provide the Dishes to the reducer
+import * as ActionTypes from './ActionTypes';  
+import {baseUrl} from '../shared/baseUrl';
 
 export const addComment = (dishId, rating, author, comment) => ({
     type: ActionTypes.ADD_COMMENT,
@@ -13,9 +13,10 @@ export const addComment = (dishId, rating, author, comment) => ({
 
 export const fetchDishes =() => (dispatch) => {     // fetchDishes is a thunk that calls and disatch several actions
     dispatch(dishesLoading(true));
-    setTimeout(()=>{
-        dispatch(addDishes(DISHES));
-    }, 2000);
+
+    return fetch(baseUrl+'dishes')
+        .then(response =>response.json())                 // handling promise
+        .then(dishes => dispatch(addDishes(dishes)))  ;                 //response.json() will be processed adn availabe here as dishes
 }
 
 export const dishesLoading = () => ({
@@ -30,4 +31,20 @@ export const dishesFailed = (errmess) => ({
 export const addDishes = (dishes) =>({
     type: ActionTypes.ADD_DISHES,
     payload: dishes
+});
+
+export const fetchComments =() => (dispatch) => {     // fetchComments is a thunk that calls and disatch several actions
+    return fetch(baseUrl+'comments')
+        .then(response =>response.json())                 // handling promise
+        .then(comments => dispatch(addComments(comments)));   //response.json() will be processed adn availabe here as comments
+}
+
+export const commentsFailed = (errmess) => ({
+    type: ActionTypes.COMMENTS_FAILED,
+    payload: errmess
+});
+
+export const addComments = (comments) =>({
+    type: ActionTypes.ADD_COMMENTS,
+    payload: comments
 });

@@ -7,7 +7,7 @@ import {Link} from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faPenAlt} from "@fortawesome/free-solid-svg-icons";
 import Loading from './loadingComponent';
-
+import {baseUrl} from '../shared/baseUrl';
 export default class Dishcomments extends Component {
     constructor(props){
         super(props);
@@ -80,7 +80,7 @@ export default class Dishcomments extends Component {
                     </Breadcrumb>
                     <div className="row" style={{marginTop:50, marginBottom:80}}>
                         <div className="col-12 col-sm-5" style={{backgroundColor:"#F9A826", color:"#000000" , paddingTop:10, borderRadius: 20, justifyContent:'center'}}>
-                            <img src={this.props.dish.image} alt="" style={{width:"300px", height:"300px", marginLeft:'15%'}} />
+                            <img src={baseUrl + this.props.dish.image} alt="" style={{width:"300px", height:"300px", marginLeft:'15%'}} />
                             <hr/>
                             <h2>{this.props.dish.name}</h2>
                             <p>{this.props.dish.description}</p>
